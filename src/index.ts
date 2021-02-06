@@ -4,7 +4,9 @@ export {
   useFirstRender,
   useFirstUpdateEffect,
   useUpdate,
-  useUpdateEffect
+  useUpdateEffect,
+  useMount,
+  useUnmount
 } from './hooks';
 
 export {

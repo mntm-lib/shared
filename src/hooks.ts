@@ -38,3 +38,11 @@ export const useUpdateEffect = (effect: EffectCallback, deps: DependencyList | u
 export const useFirstUpdateEffect = (effect: EffectCallback) => {
   return useUpdateEffect(effect, constDeps);
 };
+
+export const useMount = (effect: EffectCallback) => {
+  return useEffect(effect, constDeps);
+};
+
+export const useUnmount = (effect: ReturnType<EffectCallback>) => {
+  return useEffect(() => effect, constDeps);
+};
