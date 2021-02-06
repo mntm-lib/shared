@@ -1,0 +1,50 @@
+{
+  "name": "@mntm/shared",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "jsnext:main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": {
+    "name": "Anton Petrov",
+    "email": "im@petrov.engineer",
+    "url": "https://petrov.engineer"
+  },
+  "description": "Utility functions and constants shared across @mntm packages",
+  "license": "MIT",
+  "keywords": [
+    "mntm",
+    "shared",
+    "utility",
+    "utils",
+    "hooks"
+  ],
+  "homepage": "https://github.com/maxi-team/shared",
+  "bugs": "https://github.com/maxi-team/shared/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maxi-team/shared.git"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json"
+  },
+  "devDependencies": {
+    "@mntm/eslint-config": "^0.2.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "eslint": "^7.19.0",
+    "typescript": "^4.1.3"
+  },
+  "peerDependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  }
+}
