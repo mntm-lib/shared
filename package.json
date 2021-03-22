@@ -5,6 +5,7 @@
   "module": "dist/index.js",
   "jsnext:main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "sideEffects": false,
   "author": {
     "name": "Anton Petrov",
     "email": "im@petrov.engineer",
@@ -30,10 +31,10 @@
   },
   "devDependencies": {
     "@mntm/eslint-config": "^0.2.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "eslint": "^7.19.0",
-    "typescript": "^4.1.3"
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.2",
+    "eslint": "^7.22.0",
+    "typescript": "^4.2.3"
   },
   "peerDependencies": {
     "react": "^17.0.1",
