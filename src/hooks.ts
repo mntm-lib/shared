@@ -4,15 +4,15 @@ import { useRef, useMemo, useReducer, useEffect } from 'react';
 import { constDeps, constRef } from './react';
 
 type AnyFunction = (...args: any[]) => any;
-export const useHandler = <T extends AnyFunction>(handler: T) => {
+export const useHandler = /*#__INLINE__*/<T extends AnyFunction>(handler: T) => {
   return useRef(handler).current;
 };
 
-export const useCreation = <T>(creator: () => T) => {
+export const useCreation = /*#__INLINE__*/<T>(creator: () => T) => {
   return useMemo(creator, constDeps);
 };
 
-const updateReducer = () => ({});
+const updateReducer = /*#__NOINLINE__*/() => ({});
 export const useUpdate = () => {
   return useReducer(updateReducer, constRef)[1];
 };
@@ -35,14 +35,14 @@ export const useUpdateEffect = (effect: EffectCallback, deps: DependencyList | u
   }, deps);
 };
 
-export const useFirstUpdateEffect = (effect: EffectCallback) => {
+export const useFirstUpdateEffect = /*#__INLINE__*/(effect: EffectCallback) => {
   return useUpdateEffect(effect, constDeps);
 };
 
-export const useMount = (effect: EffectCallback) => {
+export const useMount = /*#__INLINE__*/(effect: EffectCallback) => {
   return useEffect(effect, constDeps);
 };
 
-export const useUnmount = (effect: ReturnType<EffectCallback>) => {
+export const useUnmount = /*#__INLINE__*/(effect: ReturnType<EffectCallback>) => {
   return useEffect(() => effect, constDeps);
 };
