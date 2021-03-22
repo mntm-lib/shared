@@ -6,4 +6,5 @@ export const constRef = {} as const;
 export const constExoticDeps: any[] = [];
 export const constDeps: DependencyList = constExoticDeps;
 
+/** @nosideeffects */
 export const castRender = /*#__INLINE__*/(render: ReactNode) => render as unknown as ReactElement | null;

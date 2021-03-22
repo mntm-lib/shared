@@ -1,3 +1,4 @@
+/** @nosideeffects */
 export const shallowEqual = (a: any, b: any) => {
   if (a === b) {
     return true;
@@ -22,6 +23,7 @@ export const shallowEqual = (a: any, b: any) => {
   return true;
 };
 
+/** @nosideeffects */
 export const shallowEqualDeps = (a: readonly any[], b: readonly any[]) => {
   if (a === b) {
     return true;
