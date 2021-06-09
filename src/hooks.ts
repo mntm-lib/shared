@@ -1,9 +1,8 @@
 import type { EffectCallback, DependencyList } from 'react';
+import type { AnyFunction } from './types.js';
 
 import { useRef, useMemo, useReducer, useEffect } from 'react';
-import { constDeps, constRef } from './react';
-
-type AnyFunction = (...args: any[]) => any;
+import { constDeps, constRef } from './react.js';
 
 /** @nosideeffects */
 export const useHandler = /*#__INLINE__*/<T extends AnyFunction>(handler: T) => {
