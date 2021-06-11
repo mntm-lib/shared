@@ -83,7 +83,7 @@ export const isShallowEqual = /*#__NOINLINE__*/(a: any, b: any) => {
 };
 
 /** @noinline */
-export const isShallowEqualArray = /*#__NOINLINE__*/(a: readonly any[], b: readonly any[]) => {
+export const isShallowEqualArray = /*#__NOINLINE__*/(a: readonly unknown[], b: readonly unknown[]) => {
   if (a === b) {
     return true;
   }
@@ -97,3 +97,21 @@ export const isShallowEqualArray = /*#__NOINLINE__*/(a: readonly any[], b: reado
   return true;
 };
 
+/** @noinline */
+export const isPartialEqual = /*#__NOINLINE__*/<T extends Record<string, unknown>>(a: Partial<T>, b: T) => {
+  if (a === b) {
+    return true;
+  }
+
+  if (!a || !b) {
+    return false;
+  }
+
+  for (const i in a) {
+    if (a[i] !== b[i]) {
+      return false;
+    }
+  }
+
+  return true;
+};

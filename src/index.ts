@@ -38,7 +38,8 @@ export {
   isNullable,
   isOptional,
   isShallowEqual,
-  isShallowEqualArray
+  isShallowEqualArray,
+  isPartialEqual
 } from './is.js';
 
 export {
