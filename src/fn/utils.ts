@@ -1,4 +1,4 @@
-import type { Predicate } from './types.js';
+import type { Predicate } from '../types.js';
 
 import { isEmptyArray } from './is.js';
 

@@ -1,9 +1,7 @@
 /** @noinline */
 export const nextTick = /*#__NOINLINE__*/(() => {
   if (typeof queueMicrotask === 'function') {
-    return /*#__NOINLINE__*/(fn: VoidFunction) => {
-      queueMicrotask(fn);
-    };
+    return /*#__NOINLINE__*/queueMicrotask;
   } else {
     const flush = Promise.resolve();
     const noop = () => {
@@ -17,9 +15,7 @@ export const nextTick = /*#__NOINLINE__*/(() => {
 })();
 
 /** @nosideeffects */
-export const nextFrame = /*#__INLINE__*/(fn: VoidFunction) => {
-  requestAnimationFrame(fn);
-};
+export const nextFrame = /*#__INLINE__*/requestAnimationFrame;
 
 /** @nosideeffects */
 export const nextFrameFlush = /*#__INLINE__*/(fn: VoidFunction) => {

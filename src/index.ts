@@ -6,28 +6,33 @@ export {
   useUpdate,
   useUpdateEffect,
   useMount,
-  useUnmount
-} from './hooks.js';
+  useUnmount,
+  useMountedRef,
 
-export {
+  usePromise,
+  useLazyPromise,
+
+  useTrackState,
+
   batch,
   castRender,
+
   constDeps,
   constExoticDeps,
-  constRef
-} from './react.js';
+  constRef,
+
+  extractState
+} from './react/index.js';
 
 export {
-  weakUnique,
-  weakUniqueId,
-  find,
-  findIndex,
-  findLast,
-  findLastIndex,
-  last
-} from './utils.js';
+  nextFrame,
+  nextFrameFlush,
+  nextTick,
 
-export {
+  memoize,
+
+  niceThrottle,
+
   isObject,
   isArray,
   isBoolean,
@@ -39,12 +44,41 @@ export {
   isOptional,
   isShallowEqual,
   isShallowEqualArray,
-  isPartialEqual
-} from './is.js';
+  isPartialEqual,
 
-export {
-  mitt
-} from './mitt.js';
+  find,
+  findIndex,
+  findLast,
+  findLastIndex,
+  last,
+  weakUnique,
+  weakUniqueId,
+
+  loadBlob,
+  loadImage,
+  extractURL,
+  readAsData,
+  extractBlobInfo,
+
+  emitChange,
+  emitChecked,
+  emitValue,
+
+  focusScroll,
+  offsetTop,
+
+  createRenderer,
+
+  cancelEvent,
+  stopEvent,
+
+  formatNumber,
+
+  formatPreserveSpace,
+  formatRichSpace,
+  formatSimpleSpace,
+  formatUnicodeSpace
+} from './fn/index.js';
 
 export {
   __dev__

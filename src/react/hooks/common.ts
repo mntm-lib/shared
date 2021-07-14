@@ -1,8 +1,8 @@
 import type { EffectCallback, DependencyList } from 'react';
-import type { AnyFunction } from './types.js';
+import type { AnyFunction } from '../../types.js';
 
-import { useRef, useMemo, useReducer, useEffect } from 'react';
-import { constDeps, constRef } from './react.js';
+import { useRef, useMemo, useReducer, useEffect, useLayoutEffect } from 'react';
+import { constDeps, constRef } from '../utils/index.js';
 
 /** @nosideeffects */
 export const useHandler = /*#__INLINE__*/<T extends AnyFunction>(handler: T) => {
@@ -42,6 +42,16 @@ export const useUpdateEffect = (effect: EffectCallback, deps: DependencyList | u
 };
 
 /** @nosideeffects */
+export const useUpdateLayoutEffect = (effect: EffectCallback, deps: DependencyList | undefined) => {
+  const isFirstRender = useFirstRender();
+  useLayoutEffect(() => {
+    if (!isFirstRender) {
+      return effect();
+    }
+  }, deps);
+};
+
+/** @nosideeffects */
 export const useFirstUpdateEffect = /*#__INLINE__*/(effect: EffectCallback) => {
   return useUpdateEffect(effect, constDeps);
 };
@@ -54,4 +64,28 @@ export const useMount = /*#__INLINE__*/(effect: EffectCallback) => {
 /** @nosideeffects */
 export const useUnmount = /*#__INLINE__*/(effect: ReturnType<EffectCallback>) => {
   return useEffect(() => effect, constDeps);
+};
+
+/** @nosideeffects */
+export const useMountedRef = () => {
+  const mountedRef = useRef(true);
+  useUnmount(() => {
+    mountedRef.current = false;
+  });
+  return mountedRef;
+};
+
+/** @nosideeffects */
+export const useStableRef = <T>(value: T) => {
+  const stableRef = useRef(value);
+  stableRef.current = value;
+  return stableRef;
+};
+
+/** @nosideeffects */
+export const usePrevious = <T>(value: T) => {
+  const previousRef = useRef(value);
+  const previous = previousRef.current;
+  previousRef.current = value;
+  return previous;
 };

@@ -1,4 +1,4 @@
-import type { AnyFunction } from './types.js';
+import type { AnyFunction } from '../types.js';
 
 /** @noinline */
 export const isObject = /*#__NOINLINE__*/(obj: any): obj is Record<string, unknown> => {
@@ -37,6 +37,11 @@ export const isNullable = /*#__INLINE__*/(nullable: any): nullable is null => {
 /** @nosideeffects */
 export const isOptional = /*#__INLINE__*/(optional: any): optional is null | undefined => {
   return optional == null;
+};
+
+/** @nosideeffects */
+export const isResettable = /*#__INLINE__*/(value: any): boolean => {
+  return value === 0 || value === '' || value !== value || isOptional(value);
 };
 
 /** @nosideeffects */
