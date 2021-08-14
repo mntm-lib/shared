@@ -1,10 +1,11 @@
 export const readAsData = async (file: Blob) => {
   return new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
+
     Object.assign(reader, {
       onerror: () => reject(new Error('Failed')),
       onabort: () => reject(new Error('Aborted')),
-      onload: () => {
+      onload() {
         if (reader.result) {
           resolve(reader.result as string);
         } else {
@@ -27,6 +28,7 @@ export const extractURL = async (file: Blob) => {
 export const loadImage = async (src: string) => {
   return new Promise<HTMLImageElement>((resolve, reject) => {
     const loader = new Image();
+
     Object.assign(loader, {
       src,
       crossOrigin: 'Anonymous',
@@ -42,14 +44,15 @@ export const loadImage = async (src: string) => {
 
 export const loadBlob = async (src: string) => {
   return new Promise<Blob>((resolve, reject) => {
-    // need xhr cuz fetch returns invalid blob sometimes (wtf?)
+    // Need xhr cuz fetch returns invalid blob sometimes (wtf?)
     const xhr = new XMLHttpRequest();
+
     xhr.open('GET', src, true);
     Object.assign(xhr, {
       responseType: 'blob',
       onerror: () => reject(new Error('Failed')),
       onabort: () => reject(new Error('Aborted')),
-      onload: () => {
+      onload() {
         if (xhr.response) {
           resolve(xhr.response);
         } else {
@@ -62,12 +65,13 @@ export const loadBlob = async (src: string) => {
 };
 
 export const extractBlobInfo = (blob: Partial<Blob>) => {
+  // eslint-disable-next-line unicorn/explicit-length-check
   const size = blob.size || 0;
 
   const type = blob.type || 'application/octet-stream';
 
-  const matchExt = type.match(/\/(.*?)$/);
-  const mimeType = matchExt && matchExt[0] || '';
+  const matchExt = /\/(.*?)$/.exec(type);
+  const mimeType = (matchExt && matchExt[0]) || '';
 
   return {
     size,

@@ -1,4 +1,4 @@
-import type { ReactNode, ReactElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 
 export { unstable_batchedUpdates as batch } from 'react-dom';
 

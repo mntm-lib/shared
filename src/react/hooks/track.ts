@@ -15,6 +15,7 @@ export const useTrackState = <S extends TrackState>(initial: S) => {
   const setState = useHandler((state: SetStateAction<S>) => {
     const next = isFunction(state) ? state(stateRef.current) : state;
     const current = stateRef.current;
+    const track = trackRef.current;
 
     let shouldUpdate = false;
 
@@ -24,7 +25,10 @@ export const useTrackState = <S extends TrackState>(initial: S) => {
       }
 
       current[key] = next[key];
-      shouldUpdate = true;
+
+      if (track[key]) {
+        shouldUpdate = true;
+      }
     }
 
     if (shouldUpdate) {
@@ -33,10 +37,12 @@ export const useTrackState = <S extends TrackState>(initial: S) => {
   });
 
   const state = {};
+
   for (const key in stateRef.current) {
     Object.defineProperty(state, key, {
       get() {
         trackRef.current[key] = true;
+
         return stateRef.current;
       }
     });

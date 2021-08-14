@@ -1,11 +1,13 @@
 export const createRenderer = (width: number, height: number, transparent = false) => {
   const canvas = document.createElement('canvas');
+
   canvas.width = width;
   canvas.height = height;
   const ctx = canvas.getContext('2d', {
     alpha: transparent,
     desynchronized: true
   });
+
   if (!ctx) {
     throw new Error('Failed');
   }
@@ -15,5 +17,6 @@ export const createRenderer = (width: number, height: number, transparent = fals
     ctx.fillStyle = '#FFFFFF';
     ctx.fillRect(0, 0, width, height);
   }
+
   return ctx;
 };

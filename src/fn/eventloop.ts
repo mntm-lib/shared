@@ -2,16 +2,17 @@
 export const nextTick = /*#__NOINLINE__*/(() => {
   if (typeof queueMicrotask === 'function') {
     return /*#__NOINLINE__*/queueMicrotask;
-  } else {
-    const flush = Promise.resolve();
-    const noop = () => {
-      // hack to flush event loop asap
-    };
-    return /*#__NOINLINE__*/(fn: VoidFunction) => {
-      flush.then(fn);
-      setTimeout(noop, 0);
-    };
   }
+
+  const flush = Promise.resolve();
+  const noop = () => {
+    // Hack to flush event loop asap
+  };
+
+  return /*#__NOINLINE__*/(fn: VoidFunction) => {
+    flush.then(fn);
+    setTimeout(noop, 0);
+  };
 })();
 
 /** @nosideeffects */

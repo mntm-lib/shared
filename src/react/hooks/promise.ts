@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useMountedRef, useHandler, useMount } from './common.js';
+import { useHandler, useMount, useMountedRef } from './common.js';
 
 type PromiseState<T, E = any> = {
   pending: false;
@@ -45,15 +45,15 @@ export const useLazyPromise = <T, E>(handler: PromiseHandler<T>, defaultState: P
         data,
         error: null
       };
-    }).catch((error) => {
+    }).catch((ex) => {
       return {
         pending: false,
         data: null,
-        error
+        error: ex
       };
-    }).then((state) => {
+    }).then((next) => {
       if (mountedRef.current) {
-        setState(state as PromiseState<T, E>);
+        setState(next as PromiseState<T, E>);
       }
     });
   });
@@ -63,6 +63,8 @@ export const useLazyPromise = <T, E>(handler: PromiseHandler<T>, defaultState: P
 
 export const usePromise = <T, E>(handler: PromiseHandler<T>, defaultState: PromiseState<T, E> = STATE_PENDING) => {
   const [state, run] = useLazyPromise<T, E>(handler, defaultState);
+
   useMount(run);
+
   return state;
 };

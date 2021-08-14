@@ -2,15 +2,17 @@ import { isFunction } from '../is.js';
 
 export const formatNumber = (() => {
   const empty = '';
-  const space = '\xa0';
+  const space = '\u00A0';
   const fix = (result: string) => {
-    // bug: 1<breakable>000 -> 1<non-breakable>000
-    result = result.replace(/\s/g, space);
-    // bug: 1 000 -> 1000
-    if (result.length < 9 && result[1] === space) {
-      return result.replace(space, empty);
+    // Bug: 1<breakable>000 -> 1<non-breakable>000
+    const clear = result.replace(/\s/g, space);
+
+    // Bug: 1 000 -> 1000
+    if (clear.length < 9 && clear[1] === space) {
+      return clear.replace(space, empty);
     }
-    return result;
+
+    return clear;
   };
 
   const localeSupported = () => {
@@ -40,8 +42,10 @@ export const formatNumber = (() => {
 
     const arr = [];
     let an = Math.abs(n);
+
     if (an > 9999) {
       let part;
+
       while (an > 999) {
         part = Math.floor(an % 1000);
         if (part < 10) {

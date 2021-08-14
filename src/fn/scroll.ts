@@ -8,18 +8,19 @@ export const focusScroll = niceThrottle((target: HTMLElement) => {
       inline: 'center'
     });
   } else {
-    // scrollIntoView polyfill is too big so just focus
+    // ScrollIntoView polyfill is too big so just focus
     target.focus();
   }
 });
 
 export const offsetTop = (el: HTMLElement) => {
-  let top = el.offsetTop;
-  while (el.offsetParent) {
-    el = el.offsetParent as HTMLElement;
-    top += el.offsetTop;
+  let current = el;
+  let top = current.offsetTop;
+
+  while (current.offsetParent) {
+    current = current.offsetParent as HTMLElement;
+    top += current.offsetTop;
   }
+
   return top;
 };
-
-

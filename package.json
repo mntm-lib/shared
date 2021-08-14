@@ -1,6 +1,6 @@
 {
   "name": "@mntm/shared",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -30,11 +30,11 @@
     "build": "tsc"
   },
   "devDependencies": {
-    "@mntm/eslint-config": "^0.2.0",
-    "@types/node": "^16.0.0",
-    "@types/react": "^17.0.13",
-    "@types/react-dom": "^17.0.8",
-    "eslint": "^7.30.0",
+    "@mntm/eslint-config": "^0.4.1",
+    "@types/node": "^16.6.1",
+    "@types/react": "^17.0.18",
+    "@types/react-dom": "^17.0.9",
+    "eslint": "^7.32.0",
     "shx": "^0.3.3",
     "typescript": "^4.3.5"
   },

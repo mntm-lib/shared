@@ -7,6 +7,7 @@ export const isObject = /*#__NOINLINE__*/(obj: any): obj is Record<string, unkno
   }
 
   let proto = obj;
+
   while (Object.getPrototypeOf(proto) !== null) {
     proto = Object.getPrototypeOf(proto);
   }
@@ -41,7 +42,7 @@ export const isOptional = /*#__INLINE__*/(optional: any): optional is null | und
 
 /** @nosideeffects */
 export const isResettable = /*#__INLINE__*/(value: any): boolean => {
-  return value === 0 || value === '' || value !== value || isOptional(value);
+  return value === 0 || value === '' || isOptional(value) || Number.isNaN(value);
 };
 
 /** @nosideeffects */
@@ -54,6 +55,7 @@ export const isEmptyObject = /*#__NOINLINE__*/(obj: Readonly<Record<string, unkn
   for (const _ in obj) {
     return false;
   }
+
   return true;
 };
 

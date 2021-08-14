@@ -6,16 +6,16 @@ type ContextRecord = Record<string, unknown>;
 type ContextProps = PropsWithoutRef<ContextRecord>;
 
 export const createContextComponent = <P extends ContextProps, H = ContextRecord>(handlerCreator: (props: P) => H) => {
-  const Context = createContext<H>(undefined as unknown as H);
+  const Context = createContext<H>(null as unknown as H);
 
-  const Provider = (props: PropsWithChildren<P>) => (
-    createElement(Context.Provider, {
+  const Provider = (props: PropsWithChildren<P>) => {
+    return createElement(Context.Provider, {
       value: handlerCreator(props)
-    }, props.children)
-  );
+    }, props.children); // eslint-disable-line react/destructuring-assignment
+  };
 
   return {
-    Provider: Provider,
+    Provider,
     Consumer: Context.Consumer,
     Context
   };
