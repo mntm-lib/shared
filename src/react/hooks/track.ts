@@ -43,7 +43,7 @@ export const useTrackState = <S extends TrackState>(initial: S) => {
       get() {
         trackRef.current[key] = true;
 
-        return stateRef.current;
+        return stateRef.current[key];
       }
     });
   }
