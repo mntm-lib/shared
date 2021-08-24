@@ -8,7 +8,3 @@ export {
   batch,
   castRender
 } from './render.js';
-
-export {
-  extractState
-} from './state.js';

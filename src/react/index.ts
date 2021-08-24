@@ -22,7 +22,9 @@ export {
   constRef,
 
   batch,
-  castRender,
-
-  extractState
+  castRender
 } from './utils/index.js';
+
+export {
+  createContextComponent
+} from './context/index.js';

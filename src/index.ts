@@ -8,6 +8,7 @@ export {
   useMount,
   useUnmount,
   useMountedRef,
+  useStableRef,
 
   usePromise,
   useLazyPromise,
@@ -21,7 +22,7 @@ export {
   constExoticDeps,
   constRef,
 
-  extractState
+  createContextComponent
 } from './react/index.js';
 
 export {
