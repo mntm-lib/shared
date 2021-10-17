@@ -48,6 +48,7 @@ export const loadBlob = async (src: string) => {
     const xhr = new XMLHttpRequest();
 
     xhr.open('GET', src, true);
+
     Object.assign(xhr, {
       responseType: 'blob',
       onerror: () => reject(new Error('Failed')),
@@ -60,6 +61,7 @@ export const loadBlob = async (src: string) => {
         }
       }
     });
+
     xhr.send();
   });
 };
@@ -67,7 +69,6 @@ export const loadBlob = async (src: string) => {
 export const extractBlobInfo = (blob: Partial<Blob>) => {
   // eslint-disable-next-line unicorn/explicit-length-check
   const size = blob.size || 0;
-
   const type = blob.type || 'application/octet-stream';
 
   const matchExt = /\/(.*?)$/.exec(type);

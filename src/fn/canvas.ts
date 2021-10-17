@@ -3,6 +3,7 @@ export const createRenderer = (width: number, height: number, transparent = fals
 
   canvas.width = width;
   canvas.height = height;
+
   const ctx = canvas.getContext('2d', {
     alpha: transparent,
     desynchronized: true
@@ -11,6 +12,7 @@ export const createRenderer = (width: number, height: number, transparent = fals
   if (!ctx) {
     throw new Error('Failed');
   }
+
   if (transparent) {
     ctx.clearRect(0, 0, width, height);
   } else {

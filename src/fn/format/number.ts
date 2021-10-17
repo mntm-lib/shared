@@ -35,9 +35,9 @@ export const formatNumber = (() => {
     };
   }
 
-  const polyfill = (n: number) => {
+  return (n: number) => {
     if (!n) {
-      return ['0'];
+      return '0';
     }
 
     const arr = [];
@@ -62,6 +62,4 @@ export const formatNumber = (() => {
 
     return arr.reverse().join(space);
   };
-
-  return (n: number) => polyfill(n);
 })();

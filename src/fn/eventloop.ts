@@ -1,9 +1,5 @@
 /** @noinline */
 export const nextTick = /*#__NOINLINE__*/(() => {
-  if (typeof queueMicrotask === 'function') {
-    return /*#__NOINLINE__*/queueMicrotask;
-  }
-
   const flush = Promise.resolve();
   const noop = () => {
     // Hack to flush event loop asap

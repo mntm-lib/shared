@@ -48,5 +48,5 @@ export const useTrackState = <S extends TrackState>(initial: S) => {
     });
   }
 
-  return [state as S, setState] as const;
+  return [state as Readonly<S>, setState] as const;
 };

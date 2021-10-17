@@ -1,9 +1,9 @@
 {
   "name": "@mntm/shared",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "sideEffects": false,
   "author": {
     "name": "Anton Petrov",
@@ -30,13 +30,13 @@
     "build": "tsc"
   },
   "devDependencies": {
-    "@mntm/eslint-config": "^0.4.1",
-    "@types/node": "^16.6.1",
-    "@types/react": "^17.0.18",
+    "@mntm/eslint-config": "^0.4.3",
+    "@types/node": "^16.11.1",
+    "@types/react": "^17.0.30",
     "@types/react-dom": "^17.0.9",
     "eslint": "^7.32.0",
     "shx": "^0.3.3",
-    "typescript": "^4.3.5"
+    "typescript": "^4.4.4"
   },
   "peerDependencies": {
     "react": "^17.0.2",
