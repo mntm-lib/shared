@@ -1,9 +1,8 @@
+import { noop } from './noop.js';
+
 /** @noinline */
 export const nextTick = /*#__NOINLINE__*/(() => {
   const flush = Promise.resolve();
-  const noop = () => {
-    // Hack to flush event loop asap
-  };
 
   return /*#__NOINLINE__*/(fn: VoidFunction) => {
     flush.then(fn);

@@ -4,6 +4,7 @@ export const emitChange = (el: HTMLInputElement) => {
   Object.defineProperty(event, 'simulated', {
     value: true
   });
+
   el.dispatchEvent(event);
 };
 

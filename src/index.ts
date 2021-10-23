@@ -7,8 +7,11 @@ export {
   useUpdateEffect,
   useMount,
   useUnmount,
+  useRenderEffect,
   useMountedRef,
   useStableRef,
+  usePrevious,
+  useUpdateLayoutEffect,
 
   usePromise,
   useLazyPromise,
@@ -22,7 +25,8 @@ export {
   constExoticDeps,
   constRef,
 
-  createContextComponent
+  createContextComponent,
+  createSplittedContext
 } from './react/index.js';
 
 export {
@@ -78,7 +82,9 @@ export {
   formatPreserveSpace,
   formatRichSpace,
   formatSimpleSpace,
-  formatUnicodeSpace
+  formatUnicodeSpace,
+
+  noop
 } from './fn/index.js';
 
 export {

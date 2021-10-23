@@ -16,7 +16,6 @@ export const createContextComponent = <P extends ContextProps, H = ContextRecord
 
   return {
     Provider,
-    Consumer: Context.Consumer,
     Context
-  };
+  } as const;
 };

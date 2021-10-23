@@ -66,6 +66,10 @@ export {
 } from './event.js';
 
 export {
+  noop
+} from './noop.js';
+
+export {
   formatNumber,
 
   formatPreserveSpace,

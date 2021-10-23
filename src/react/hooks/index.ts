@@ -7,8 +7,11 @@ export {
   useUpdateEffect,
   useMount,
   useUnmount,
+  useRenderEffect,
   useMountedRef,
-  useStableRef
+  useStableRef,
+  usePrevious,
+  useUpdateLayoutEffect
 } from './common.js';
 
 export {

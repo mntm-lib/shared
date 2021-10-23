@@ -7,8 +7,11 @@ export {
   useUpdateEffect,
   useMount,
   useUnmount,
+  useRenderEffect,
   useMountedRef,
   useStableRef,
+  usePrevious,
+  useUpdateLayoutEffect,
 
   usePromise,
   useLazyPromise,
@@ -26,5 +29,6 @@ export {
 } from './utils/index.js';
 
 export {
-  createContextComponent
+  createContextComponent,
+  createSplittedContext
 } from './context/index.js';

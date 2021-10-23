@@ -3,6 +3,7 @@ import type { AnyFunction } from '../../types.js';
 
 import { useEffect, useLayoutEffect, useMemo, useReducer, useRef } from 'react';
 import { constDeps, constRef } from '../utils/index.js';
+import { noop } from '../../fn/index.js';
 
 /** @nosideeffects */
 export const useHandler = /*#__INLINE__*/<T extends AnyFunction>(handler: T) => {
@@ -59,17 +60,35 @@ export const useUpdateLayoutEffect = (effect: EffectCallback, deps: DependencyLi
 
 /** @nosideeffects */
 export const useFirstUpdateEffect = /*#__INLINE__*/(effect: EffectCallback) => {
-  return useUpdateEffect(effect, constDeps);
+  useUpdateEffect(effect, constDeps);
 };
 
 /** @nosideeffects */
 export const useMount = /*#__INLINE__*/(effect: EffectCallback) => {
-  return useEffect(effect, constDeps);
+  useEffect(effect, constDeps);
 };
 
 /** @nosideeffects */
 export const useUnmount = /*#__INLINE__*/(effect: ReturnType<EffectCallback>) => {
-  return useEffect(() => effect, constDeps);
+  useEffect(() => effect, constDeps);
+};
+
+/** @nosideeffects */
+export const useRenderEffect = (effect: EffectCallback) => {
+  const render = useRef(true);
+  const clear = useRef(noop);
+
+  if (render.current) {
+    render.current = false;
+
+    const destructor = effect();
+
+    if (destructor) {
+      clear.current = destructor;
+    }
+  }
+
+  useUnmount(clear.current);
 };
 
 /** @nosideeffects */
