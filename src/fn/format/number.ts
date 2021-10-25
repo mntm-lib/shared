@@ -1,65 +1,57 @@
-import { isFunction } from '../is.js';
+import { isDigit } from '../is.js';
 
 export const formatNumber = (() => {
+  /* eslint-disable no-param-reassign, no-undefined */
+
   const empty = '';
   const space = '\u00A0';
-  const fix = (result: string) => {
-    // Bug: 1<breakable>000 -> 1<non-breakable>000
-    const clear = result.replace(/\s/g, space);
 
-    // Bug: 1 000 -> 1000
-    if (clear.length < 9 && clear[1] === space) {
-      return clear.replace(space, empty);
-    }
+  const defaultLocale = undefined;
 
-    return clear;
-  };
-
-  const localeSupported = () => {
-    if (!isFunction(Number.prototype.toLocaleString)) {
-      return false;
-    }
-
-    const testFrom = 10000.01;
+  const supports = (() => {
+    const number = 0;
 
     try {
-      return !!testFrom.toLocaleString();
-    } catch {
-      return false;
+      number.toLocaleString('i');
+    } catch (ex: unknown) {
+      return (ex as Error).name === 'RangeError';
     }
+
+    return false;
+  })();
+
+  const fix = (input: number, result: string) => {
+    if (
+      input > 999 &&
+      input < 9999 &&
+      !isDigit(result.charCodeAt(1))
+    ) {
+      // Bug: 1 000 -> 1000
+      result = result.replace(result[1], empty);
+    }
+
+    if (
+      input > 9999
+    ) {
+      // Bug: 1<breakable>000 -> 1<non-breakable>000
+      result = result.replace(/\s/g, space);
+    }
+
+    return result;
   };
 
-  if (localeSupported()) {
-    return (n: number) => {
-      return fix((+n).toLocaleString());
+  if (supports) {
+    return (input: number, locale?: string | undefined) => {
+      input = +input;
+
+      return fix(input, input.toLocaleString(locale || defaultLocale));
     };
   }
 
-  return (n: number) => {
-    if (!n) {
-      return '0';
-    }
+  return (input: number) => {
+    input = +input;
 
-    const arr = [];
-    let an = Math.abs(n);
-
-    if (an > 9999) {
-      let part;
-
-      while (an > 999) {
-        part = Math.floor(an % 1000);
-        if (part < 10) {
-          arr.push(`00${part}`);
-        } else if (part < 100) {
-          arr.push(`0${part}`);
-        } else {
-          arr.push(`${part}`);
-        }
-        an = Math.floor(an / 1000);
-      }
-    }
-    arr.push(`${Math.sign(n) * an}`);
-
-    return arr.reverse().join(space);
+    // Calling toLocaleString is unsafe
+    return input.toString();
   };
 })();

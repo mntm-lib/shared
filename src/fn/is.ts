@@ -1,5 +1,10 @@
 import type { AnyFunction } from '../types.js';
 
+/** @nosideeffects */
+export const isDigit = /*#__INLINE__*/(code: number): boolean => {
+  return code >= 48 && code <= 57;
+};
+
 /** @noinline */
 export const isObject = /*#__NOINLINE__*/(obj: any): obj is Record<string, unknown> => {
   if (typeof obj !== 'object' || obj === null) {
