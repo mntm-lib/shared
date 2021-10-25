@@ -1,6 +1,7 @@
 import { isDigit } from '../is.js';
 
-export const formatNumber = (() => {
+/** @noinline */
+export const formatNumber = /*#__NOINLINE__*/(() => {
   /* eslint-disable no-param-reassign, no-undefined */
 
   const empty = '';
@@ -8,7 +9,8 @@ export const formatNumber = (() => {
 
   const defaultLocale = undefined;
 
-  const supports = (() => {
+  /** @noinline */
+  const supports = /*#__NOINLINE__*/(() => {
     const number = 0;
 
     try {

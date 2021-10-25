@@ -72,6 +72,8 @@ export {
 export {
   formatNumber,
 
+  declension,
+
   formatPreserveSpace,
   formatRichSpace,
   formatSimpleSpace,
