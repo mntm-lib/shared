@@ -1,4 +1,6 @@
-import { isOptional } from 'src';
+import type { Optional } from '../types.js';
+
+import { isOptional } from './is.js';
 
 const EMPTY = '';
 
@@ -22,9 +24,9 @@ export const parseParams = (from: string) => {
 };
 
 /** @nosideeffects */
-export const stringifyParams = (params: Record<string, string>) => {
+export const stringifyParams = (params: Record<string, Optional<string | number>>) => {
   let result = EMPTY;
-  let value = EMPTY;
+  let value: Optional<string | number> = EMPTY;
 
   for (const key in params) {
     if (result !== EMPTY) {
