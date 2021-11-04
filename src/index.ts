@@ -50,6 +50,8 @@ export {
   isShallowEqual,
   isShallowEqualArray,
   isPartialEqual,
+  isDigit,
+  isResettable,
 
   find,
   findIndex,
