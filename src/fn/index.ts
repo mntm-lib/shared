@@ -24,7 +24,9 @@ export {
   isOptional,
   isShallowEqual,
   isShallowEqualArray,
-  isPartialEqual
+  isPartialEqual,
+  isDigit,
+  isResettable
 } from './is.js';
 
 export {
