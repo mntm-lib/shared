@@ -1,3 +1,5 @@
+import { isOptional } from 'src';
+
 const EMPTY = '';
 
 /** @nosideeffects */
@@ -21,15 +23,21 @@ export const parseParams = (from: string) => {
 
 /** @nosideeffects */
 export const stringifyParams = (params: Record<string, string>) => {
-  let assign = EMPTY;
+  let result = EMPTY;
+  let value = EMPTY;
 
   for (const key in params) {
-    if (assign !== EMPTY) {
-      assign += '&';
+    if (result !== EMPTY) {
+      result += '&';
     }
 
-    assign += `${key}=${params[key]}`;
+    value = params[key];
+    value = isOptional(value) ? EMPTY : value;
+
+    result += `${key}=${value}`;
   }
+
+  return result;
 };
 
 /** @nosideeffects */
