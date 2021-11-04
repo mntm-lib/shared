@@ -12,11 +12,20 @@ export {
   useStableRef,
   usePrevious,
   useUpdateLayoutEffect,
+  useLayoutMount,
+  useLayoutUnmount,
+  usePreviousState,
+  useUpdateState,
 
   usePromise,
   useLazyPromise,
+  useLazyState,
 
-  useTrackState
+  useTrackState,
+
+  useIsomorphicEffect,
+
+  useScrollHandler
 } from './hooks/index.js';
 
 export {

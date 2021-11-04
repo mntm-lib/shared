@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { isPromiseLike } from '../../fn/index.js';
 import { useHandler, useMount, useMountedRef } from './common.js';
 
 type PromiseState<T, E = any> = {
@@ -68,3 +69,21 @@ export const usePromise = <T, E>(handler: PromiseHandler<T>, defaultState: Promi
 
   return state;
 };
+
+/** @nosideeffects */
+export const useLazyState = <T = undefined>(lazy: () => T | PromiseLike<T>) => {
+  const [state, setState] = useState<T | null>(() => {
+    const value = lazy();
+
+    if (isPromiseLike(value)) {
+      Promise.resolve(value).then(setState);
+
+      return null;
+    }
+
+    return value;
+  });
+
+  return [state, setState] as const;
+};
+

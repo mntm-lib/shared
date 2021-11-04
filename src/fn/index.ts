@@ -26,7 +26,9 @@ export {
   isShallowEqualArray,
   isPartialEqual,
   isDigit,
-  isResettable
+  isResettable,
+  isRecord,
+  isPromiseLike
 } from './is.js';
 
 export {
@@ -36,7 +38,9 @@ export {
   findLastIndex,
   last,
   weakUnique,
-  weakUniqueId
+  weakUniqueId,
+  weakTimed,
+  weakTimedId
 } from './utils.js';
 
 export {

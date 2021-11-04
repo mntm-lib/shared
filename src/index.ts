@@ -12,11 +12,20 @@ export {
   useStableRef,
   usePrevious,
   useUpdateLayoutEffect,
+  useLayoutMount,
+  useLayoutUnmount,
+  usePreviousState,
+  useUpdateState,
 
   usePromise,
   useLazyPromise,
+  useLazyState,
 
   useTrackState,
+
+  useIsomorphicEffect,
+
+  useScrollHandler,
 
   batch,
   castRender,
@@ -52,6 +61,8 @@ export {
   isPartialEqual,
   isDigit,
   isResettable,
+  isPromiseLike,
+  isRecord,
 
   find,
   findIndex,
@@ -60,6 +71,8 @@ export {
   last,
   weakUnique,
   weakUniqueId,
+  weakTimed,
+  weakTimedId,
 
   loadBlob,
   loadImage,

@@ -1,7 +1,8 @@
 import type { DependencyList, EffectCallback } from 'react';
 import type { AnyFunction } from '../../types.js';
 
-import { useEffect, useLayoutEffect, useMemo, useReducer, useRef } from 'react';
+import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { useIsomorphicEffect } from './isomorphic.js';
 import { constDeps, constRef } from '../utils/index.js';
 import { noop } from '../../fn/index.js';
 
@@ -11,7 +12,7 @@ export const useHandler = /*#__INLINE__*/<T extends AnyFunction>(handler: T) => 
 };
 
 /** @nosideeffects */
-export const useCreation = /*#__INLINE__*/<T>(creator: () => T) => {
+export const useCreation = /*#__INLINE__*/<T = undefined>(creator: () => T) => {
   return useMemo(creator, constDeps);
 };
 
@@ -19,8 +20,13 @@ export const useCreation = /*#__INLINE__*/<T>(creator: () => T) => {
 const updateReducer = /*#__NOINLINE__*/() => ({});
 
 /** @nosideeffects */
+export const useUpdateState = () => {
+  return useReducer(updateReducer, constRef);
+};
+
+/** @nosideeffects */
 export const useUpdate = () => {
-  return useReducer(updateReducer, constRef)[1];
+  return useUpdateState()[1];
 };
 
 /** @nosideeffects */
@@ -51,7 +57,7 @@ export const useUpdateEffect = (effect: EffectCallback, deps: DependencyList | u
 export const useUpdateLayoutEffect = (effect: EffectCallback, deps: DependencyList | undefined) => {
   const isFirstRender = useFirstRender();
 
-  useLayoutEffect(() => {
+  useIsomorphicEffect(() => {
     if (!isFirstRender) {
       return effect();
     }
@@ -69,8 +75,18 @@ export const useMount = /*#__INLINE__*/(effect: EffectCallback) => {
 };
 
 /** @nosideeffects */
+export const useLayoutMount = /*#__INLINE__*/(effect: EffectCallback) => {
+  useIsomorphicEffect(effect, constDeps);
+};
+
+/** @nosideeffects */
 export const useUnmount = /*#__INLINE__*/(effect: ReturnType<EffectCallback>) => {
   useEffect(() => effect, constDeps);
+};
+
+/** @nosideeffects */
+export const useLayoutUnmount = /*#__INLINE__*/(effect: ReturnType<EffectCallback>) => {
+  useIsomorphicEffect(() => effect, constDeps);
 };
 
 /** @nosideeffects */
@@ -103,7 +119,7 @@ export const useMountedRef = () => {
 };
 
 /** @nosideeffects */
-export const useStableRef = <T>(value: T) => {
+export const useStableRef = <T = undefined>(value: T) => {
   const stableRef = useRef(value);
 
   stableRef.current = value;
@@ -112,11 +128,22 @@ export const useStableRef = <T>(value: T) => {
 };
 
 /** @nosideeffects */
-export const usePrevious = <T>(value: T) => {
+export const usePrevious = <T = undefined>(value: T) => {
   const previousRef = useRef(value);
   const previous = previousRef.current;
 
   previousRef.current = value;
 
   return previous;
+};
+
+/** @nosideeffects */
+export const usePreviousState = <T = undefined>(value: T) => {
+  const [state, setState] = useState(value);
+  const previousRef = useRef<T | undefined>();
+  const previous = previousRef.current;
+
+  previousRef.current = value;
+
+  return [previous, state, setState] as const;
 };

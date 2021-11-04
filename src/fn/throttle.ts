@@ -8,15 +8,16 @@ export const niceThrottle = <F extends AnyFunction>(fn: F): F => {
   const timer = () => {
     isThrottling = false;
   };
-  const throttled = function(...args: Parameters<F>) {
+  const throttled = function() {
     if (isThrottling) {
       return lastReturn;
     }
     isThrottling = true;
     nextFrame(timer);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    lastReturn = fn.apply(this, args);
+
+    // @ts-expect-error mistype
+    // eslint-disable-next-line prefer-rest-params,unicorn/prefer-reflect-apply
+    lastReturn = fn.apply(this, arguments);
 
     return lastReturn;
   };

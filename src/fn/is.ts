@@ -5,9 +5,14 @@ export const isDigit = /*#__INLINE__*/(code: number): boolean => {
   return code >= 48 && code <= 57;
 };
 
+/** @nosideeffects */
+export const isRecord = /*#__INLINE__*/(obj: any): obj is Record<string, unknown> => {
+  return typeof obj === 'object' && obj !== null;
+};
+
 /** @noinline */
 export const isObject = /*#__NOINLINE__*/(obj: any): obj is Record<string, unknown> => {
-  if (typeof obj !== 'object' || obj === null) {
+  if (!isRecord(obj)) {
     return false;
   }
 
@@ -23,6 +28,11 @@ export const isObject = /*#__NOINLINE__*/(obj: any): obj is Record<string, unkno
 /** @nosideeffects */
 export const isFunction = /*#__INLINE__*/(fn: any): fn is AnyFunction => {
   return typeof fn === 'function';
+};
+
+/** @nosideeffects */
+export const isPromiseLike = /*#__INLINE__*/(promise: any): promise is PromiseLike<any> => {
+  return isRecord(promise) && isFunction(promise.then);
 };
 
 /** @nosideeffects */

@@ -11,14 +11,27 @@ export {
   useMountedRef,
   useStableRef,
   usePrevious,
-  useUpdateLayoutEffect
+  useUpdateLayoutEffect,
+  useLayoutMount,
+  useLayoutUnmount,
+  usePreviousState,
+  useUpdateState
 } from './common.js';
 
 export {
+  useIsomorphicEffect
+} from './isomorphic.js';
+
+export {
   usePromise,
-  useLazyPromise
+  useLazyPromise,
+  useLazyState
 } from './promise.js';
 
 export {
   useTrackState
 } from './track.js';
+
+export {
+  useScrollHandler
+} from './scroll.js';
