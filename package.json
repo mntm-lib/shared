@@ -1,6 +1,6 @@
 {
   "name": "@mntm/shared",
-  "version": "3.3.2",
+  "version": "3.4.0",
   "type": "module",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
