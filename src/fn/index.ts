@@ -85,3 +85,9 @@ export {
   formatSimpleSpace,
   formatUnicodeSpace
 } from './format/index.js';
+
+export {
+  parseHashParams,
+  parseParams,
+  stringifyParams
+} from './params.js';

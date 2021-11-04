@@ -101,7 +101,11 @@ export {
   formatSimpleSpace,
   formatUnicodeSpace,
 
-  noop
+  noop,
+
+  parseHashParams,
+  parseParams,
+  stringifyParams
 } from './fn/index.js';
 
 export {
