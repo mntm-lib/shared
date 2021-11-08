@@ -4,7 +4,6 @@ import type { AnyFunction } from '../../types.js';
 import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { useIsomorphicEffect } from './isomorphic.js';
 import { constDeps, constRef } from '../utils/index.js';
-import { noop } from '../../fn/index.js';
 
 /** @nosideeffects */
 export const useHandler = /*#__INLINE__*/<T extends AnyFunction>(handler: T) => {
@@ -91,20 +90,7 @@ export const useLayoutUnmount = /*#__INLINE__*/(effect: ReturnType<EffectCallbac
 
 /** @nosideeffects */
 export const useRenderEffect = (effect: EffectCallback) => {
-  const render = useRef(true);
-  const clear = useRef(noop);
-
-  if (render.current) {
-    render.current = false;
-
-    const destructor = effect();
-
-    if (destructor) {
-      clear.current = destructor;
-    }
-  }
-
-  useUnmount(clear.current);
+  useUnmount(useCreation(effect));
 };
 
 /** @nosideeffects */
