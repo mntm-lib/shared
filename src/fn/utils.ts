@@ -6,8 +6,10 @@ let weakId = 0;
 
 export const weakUnique = () => Math.random().toString(32).slice(2);
 export const weakUniqueId = () => `${weakUnique()}${++weakId}`;
-export const weakTimed = () => `${weakUniqueId()}${performance.now()}`;
-export const weakTimedId = () => `${weakUniqueId()}${performance.now()}${++weakId}`;
+export const weakTimed = () => Date.now().toString(32);
+export const weakTimedId = () => `${weakTimed()}${++weakId}`;
+export const fastUnique = () => `${weakUnique()}${weakTimed()}`;
+export const fastUniqueId = () => `${fastUnique()}${++weakId}`;
 
 /** @nosideeffects */
 export const findIndex = <T>(arr: readonly T[], predicate: Predicate<T>) => {

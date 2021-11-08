@@ -40,7 +40,9 @@ export {
   weakUnique,
   weakUniqueId,
   weakTimed,
-  weakTimedId
+  weakTimedId,
+  fastUnique,
+  fastUniqueId
 } from './utils.js';
 
 export {

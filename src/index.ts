@@ -73,6 +73,8 @@ export {
   weakUniqueId,
   weakTimed,
   weakTimedId,
+  fastUnique,
+  fastUniqueId,
 
   loadBlob,
   loadImage,
