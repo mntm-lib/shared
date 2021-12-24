@@ -1,5 +1,6 @@
 export {
   nextFrame,
+  cancelFrame,
   nextFrameFlush,
   nextTick
 } from './eventloop.js';
@@ -53,7 +54,8 @@ export {
 
 export {
   focusScroll,
-  offsetTop
+  offsetTop,
+  scrollTop
 } from './scroll.js';
 
 export {

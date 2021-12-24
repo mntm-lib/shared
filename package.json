@@ -1,6 +1,6 @@
 {
   "name": "@mntm/shared",
-  "version": "3.6.1",
+  "version": "4.0.0",
   "type": "module",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
@@ -29,16 +29,17 @@
   },
   "scripts": {
     "prebuild": "shx rm -rf lib",
-    "build": "tsc"
+    "build": "tsc",
+    "lint": "eslint --fix src/**/*.*"
   },
   "devDependencies": {
-    "@mntm/eslint-config": "^0.4.3",
-    "@types/node": "^16.11.4",
-    "@types/react": "^17.0.31",
-    "@types/react-dom": "^17.0.10",
-    "eslint": "^7.32.0",
+    "@mntm/eslint-config": "^1.0.0",
+    "@types/node": "^17.0.4",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "eslint": "^8.5.0",
     "shx": "^0.3.3",
-    "typescript": "^4.4.4"
+    "typescript": "^4.5.4"
   },
   "peerDependencies": {
     "react": "^17.0.2",

@@ -111,6 +111,12 @@ export {
 } from './fn/index.js';
 
 export {
+  context,
+  dom,
+  passiveOptions
+} from './global/index.js';
+
+export {
   __dev__
 } from './env.js';
 

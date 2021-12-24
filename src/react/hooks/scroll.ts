@@ -1,6 +1,13 @@
-import { useLayoutMount } from './common';
+import { scrollTop } from '../../fn/scroll.js';
+import { niceThrottle } from '../../fn/throttle.js';
+import { cancelFrame, nextFrame } from '../../fn/eventloop.js';
 
-export const useScrollHandler = (handler: VoidFunction) => {
+import { passiveOptions } from '../../global/event.js';
+import { context } from '../../global/context.js';
+
+import { useLayoutMount } from './common.js';
+
+export const useScrollHandler = (handler: (scroll: number) => any) => {
   useLayoutMount(() => {
     let mounted = true;
     let frame: number;
@@ -10,16 +17,35 @@ export const useScrollHandler = (handler: VoidFunction) => {
         return;
       }
 
-      handler();
+      handler(scrollTop());
 
-      frame = window.requestAnimationFrame(fakeScroll);
+      frame = nextFrame(fakeScroll);
     };
 
-    frame = window.requestAnimationFrame(fakeScroll);
+    frame = nextFrame(fakeScroll);
 
     return () => {
       mounted = false;
-      window.cancelAnimationFrame(frame);
+      cancelFrame(frame);
+    };
+  });
+};
+
+export const useEventScrollHandler = (handler: (scroll: number) => any) => {
+  useLayoutMount(() => {
+    let mounted = false;
+
+    const scrollHandler = niceThrottle(() => {
+      if (mounted) {
+        handler(scrollTop());
+      }
+    });
+
+    context.addEventListener('scroll', scrollHandler, passiveOptions);
+
+    return () => {
+      mounted = false;
+      context.removeEventListener('scroll', scrollHandler, passiveOptions);
     };
   });
 };

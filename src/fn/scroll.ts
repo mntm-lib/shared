@@ -1,3 +1,4 @@
+import { context } from '../global/context.js';
 import { niceThrottle } from '../fn/throttle.js';
 
 export const focusScroll = niceThrottle((target: HTMLElement) => {
@@ -23,4 +24,8 @@ export const offsetTop = (el: HTMLElement) => {
   }
 
   return top;
+};
+
+export const scrollTop = () => {
+  return context.pageYOffset || 0;
 };
