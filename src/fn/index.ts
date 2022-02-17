@@ -10,7 +10,8 @@ export {
 } from './memoize.js';
 
 export {
-  niceThrottle
+  niceThrottle,
+  fastThrottle
 } from './throttle.js';
 
 export {
@@ -72,7 +73,8 @@ export {
 
 export {
   cancelEvent,
-  stopEvent
+  stopEvent,
+  preventEvent
 } from './event.js';
 
 export {

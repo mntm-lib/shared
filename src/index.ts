@@ -42,10 +42,12 @@ export {
   nextFrame,
   nextFrameFlush,
   nextTick,
+  cancelFrame,
 
   memoize,
 
   niceThrottle,
+  fastThrottle,
 
   isObject,
   isArray,
@@ -88,11 +90,13 @@ export {
 
   focusScroll,
   offsetTop,
+  scrollTop,
 
   createRenderer,
 
   cancelEvent,
   stopEvent,
+  preventEvent,
 
   formatNumber,
 

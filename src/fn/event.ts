@@ -8,9 +8,7 @@ export const stopEvent = (e: Partial<Event>) => {
   }
 };
 
-export const cancelEvent = (e: Partial<Event>) => {
-  stopEvent(e);
-
+export const preventEvent = (e: Partial<Event>) => {
   if (e.cancelable) {
     if (e.preventDefault) {
       e.preventDefault();
@@ -20,4 +18,10 @@ export const cancelEvent = (e: Partial<Event>) => {
   }
 
   return false;
+};
+
+export const cancelEvent = (e: Partial<Event>) => {
+  stopEvent(e);
+
+  return preventEvent(e);
 };

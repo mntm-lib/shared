@@ -90,7 +90,7 @@ export const useLayoutUnmount = /*#__INLINE__*/(effect: ReturnType<EffectCallbac
 
 /** @nosideeffects */
 export const useRenderEffect = (effect: EffectCallback) => {
-  useUnmount(useCreation(effect));
+  useLayoutUnmount(useCreation(effect));
 };
 
 /** @nosideeffects */
@@ -124,12 +124,16 @@ export const usePrevious = <T = undefined>(value: T) => {
 };
 
 /** @nosideeffects */
-export const usePreviousState = <T = undefined>(value: T) => {
+export const usePreviousState = <T = undefined>(value: T | (() => T)) => {
   const [state, setState] = useState(value);
-  const previousRef = useRef<T | undefined>();
-  const previous = previousRef.current;
 
-  previousRef.current = value;
+  const preflightRef = useRef<T>(state);
+  const previousRef = useRef<T>(state);
 
-  return [previous, state, setState] as const;
+  if (preflightRef.current !== state) {
+    previousRef.current = preflightRef.current;
+    preflightRef.current = state;
+  }
+
+  return [previousRef.current, state, setState] as const;
 };

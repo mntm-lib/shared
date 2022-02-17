@@ -1,30 +1,47 @@
 import type { AnyFunction } from '../types.js';
 
-import { noop } from './noop.js';
+import { context } from '../global/context.js';
 
-/** @noinline */
-export const nextTick = /*#__NOINLINE__*/(() => {
-  const flush = Promise.resolve();
+let tick = true;
+const immediate = Promise.resolve();
+const flushTick = () => {
+  tick = true;
+};
 
-  return /*#__NOINLINE__*/(fn: AnyFunction) => {
-    flush.then(fn);
-    setTimeout(noop, 0);
-  };
-})();
+export const nextTick = (fn: AnyFunction) => {
+  immediate.then(fn);
 
-/** @nosideeffects */
-export const nextFrame: AnyFunction = /*#__NOINLINE__*/
-  typeof requestAnimationFrame === 'function' ?
-    requestAnimationFrame :
-    (fn: AnyFunction) => setTimeout(fn, 16);
+  if (tick) {
+    tick = false;
 
-/** @nosideeffects */
-export const cancelFrame = /*#__NOINLINE__*/
-  typeof cancelAnimationFrame === 'function' ?
-    cancelAnimationFrame :
-    clearTimeout;
+    immediate.then(flushTick);
+    context.setTimeout(flushTick, 0);
+  }
+};
 
-/** @nosideeffects */
-export const nextFrameFlush = /*#__INLINE__*/(fn: AnyFunction) => {
+let frame = 0;
+const frames: FrameRequestCallback[] = [];
+const flushFrames = (date: number) => {
+  frames.forEach((callback) => callback(date));
+  frames.length = 0;
+};
+
+export const nextFrame = (fn: FrameRequestCallback) => {
+  if (frames.push(fn) === 1) {
+    frame = context.requestAnimationFrame(flushFrames);
+  }
+
+  return frame;
+};
+
+export const cancelFrame = (current: number) => {
+  if (current === frame) {
+    frames.length = 0;
+  }
+
+  context.cancelAnimationFrame(current);
+};
+
+export const nextFrameFlush = (fn: AnyFunction) => {
   nextFrame(() => nextTick(fn));
 };
